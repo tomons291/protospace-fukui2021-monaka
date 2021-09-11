@@ -6,7 +6,7 @@
 | ------------------ | ------ | ----------- |
 | name               | string | null: false |
 | email              | string | null: false |
-| encrypted_password | string | null: false |
+| password           | string | null: false |
 | profile            | string | null: false |
 | affiliation        | string | null: false |
 | position           | string | null: false |
@@ -17,11 +17,12 @@
 
 ## prototypes テーブル
 
-| Column    | Type   | Options     |
-| --------  | ------ | ----------- |
-| title     | string | null: false |
-| concept   | text   | null: false |
-| catchcopy | string | null: false |
+| Column    | Type       | Options                        |
+| --------  | ---------- | ------------------------------ |
+| title     | string     | null: false                    |
+| concept   | text       | null: false                    |
+| catchcopy | string     | null: false                    |
+| user      | references | null: false, foreign_key: true |
 
 ### Association
 - has_many :comments
