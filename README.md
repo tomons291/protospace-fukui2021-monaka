@@ -6,7 +6,7 @@
 | ------------------ | ------ | ----------- |
 | name               | string | null: false |
 | email              | string | null: false |
-| password           | string | null: false |
+| encrypted_password | string | null: false |
 | profile            | string | null: false |
 | affiliation        | string | null: false |
 | position           | string | null: false |
