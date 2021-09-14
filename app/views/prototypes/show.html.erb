@@ -11,16 +11,22 @@
           <%= link_to "削除する", root_path, class: :prototype__btn %>
         </div>
       <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
-      <div class="prototype__image">
-        <%= image_tag "プロトタイプの画像" %>
-      </div>
+     
+      <%# <div class="prototype__image">%>
+      <%# <%= image_tag "プロトタイプの画像" %> %>
+      <%# </div>  %>
+
+
+
       <div class="prototype__body">
         <div class="prototype__detail">
           <p class="detail__title">キャッチコピー</p>
           <p class="detail__message">
-            <%= "プロトタイプのキャッチコピー" %>
+            <%# <%= "プロトタイプのキャッチコピー" %> %>
+<%= link_to '詳細', tweet_path(tweet.id), method: :get %>
           </p>
         </div>
+        
         <div class="prototype__detail">
           <p class="detail__title">コンセプト</p>
           <p class="detail__message">
@@ -28,6 +34,7 @@
           </p>
         </div>
       </div>
+
       <div class="prototype__comments">
         <%# ログインしているユーザーには以下のコメント投稿フォームを表示する %>
           <%# <%= form_with model: モデル名,local: true do |f|%>
