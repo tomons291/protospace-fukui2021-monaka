@@ -4,12 +4,14 @@
       <p class="prototype__hedding">
         <%= "プロトタイプのタイトル"%>
       </p>
-      <%= link_to current_user.name, root_path, class: :prototype__user %>
+      <%= link_to @prototypes.user.name, root_path, class: :prototype__user %>
       <%# プロトタイプの投稿者とログインしているユーザーが同じであれば以下を表示する %>
+       <% if user_signed_in? && current_user.id == @prototypes.user_id %>
         <div class="prototype__manage">
           <%= link_to "編集する", root_path, class: :prototype__btn %>
           <%= link_to "削除する", root_path, class: :prototype__btn %>
         </div>
+        <% end %>
       <%# // プロトタイプの投稿者とログインしているユーザーが同じであれば上記を表示する %>
      
       <%# <div class="prototype__image">%>
