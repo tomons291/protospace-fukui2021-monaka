@@ -9,6 +9,9 @@
     <% end %>
     <%# // ログインしているときは上記を表示する %>
     <div class="card__wrapper">
+      <a href="/prototypes/<%= prototype.id %>">
+       <%= image_tag prototype.image, class: 'prototype-image' if prototype.image.attached? %>
+      </a>
       <%# 投稿機能実装後、部分テンプレートでプロトタイプ投稿一覧を表示する %>
     </div>
   </div>
