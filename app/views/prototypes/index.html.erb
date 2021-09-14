@@ -12,6 +12,13 @@
       <a href="/prototypes/<%= prototype.id %>">
        <%= image_tag prototype.image, class: 'prototype-image' if prototype.image.attached? %>
       </a>
+      <div class ="card">
+        <div class="card_body">
+         <div class="card_title">
+          <a href="/prototypes/<%= prototype.id %>"></a>
+         </div>
+        </div>
+      </div>
       <%# 投稿機能実装後、部分テンプレートでプロトタイプ投稿一覧を表示する %>
     </div>
   </div>
