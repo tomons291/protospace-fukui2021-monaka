@@ -1,17 +1,19 @@
 class PrototypesController < ApplicationController
-  #before_action :set_prototype, only: [:edit, :show]
-  #before_action :move_to_index, except: [:index, :show]
+  before_action :set_prototype, only: [:edit, :show]
+  before_action :move_to_index, except: [:index, :show]
 
   def index
     @prototypes = Prototype.all
   end
 
+
   def show
-    @prototypes = Prototype.find(params[:id])
+    @prototype= Prototype.find(params[:id])
   end
 
   def new
-    @prototypes = Prototype.find(params[:id])
+    @prototype = Prototype.new
+
   end
 
   def create
@@ -38,6 +40,8 @@ class PrototypesController < ApplicationController
     end
   end
 
+
+  
   private
 
   def prototype_params
@@ -48,6 +52,10 @@ class PrototypesController < ApplicationController
     unless user_signed_in?
       redirect_to action: :index
     end
+  end
+
+  def set_prototype
+    @prototype = Prototype.find(params[:id])
   end
 
 
