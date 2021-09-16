@@ -47,4 +47,8 @@ class PrototypesController < ApplicationController
     end
   end
 
+  def set_prototype
+    @prototype = Prototype.find(params[:id])
+  end
+
 end
