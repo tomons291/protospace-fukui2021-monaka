@@ -1,5 +1,5 @@
 class PrototypesController < ApplicationController
-  before_action :set_prototype, only: [:edit, :show]
+  before_action :set_prototype, only: [:edit,:show]
   before_action :move_to_index, except: [:index, :show]
 
   def index
@@ -27,15 +27,26 @@ class PrototypesController < ApplicationController
 
 
   def edit
-    @prototype = Prototype.find(params[:id])
+    @prototype= Prototype.find(params[:id])
+    #ログインしていなかったら、ログインページへ遷移する
+     if user_signed_in?
+        elseif current_user.id == prototype.user_id #ログインユーザーと選択したプロトタイプのユーザーが一致しないとき、詳細画面にとどまる（編集画面は開けない）
+          @prototype = Prototype.new(prototype_params)
+        else
+          redirect_to user_registration_path
+      end 
+    #ログインユーザーと選択したプロトタイプのユーザーが一致しないとき、詳細画面にとどまる（編集画面は開けない）
+    
+    # end 
   end
 
   def update
+    #️空白で登録するとエラーが出て、そのままの画面になる
      prototype = Prototype.find(params[:id])
     if prototype.update(prototype_params)
-      redirect_to prototype_path(@prototype.id)
+      redirect_to prototype_path(prototype.id)
     else
-      render action: :edit
+      render :edit
     end
   end
 
