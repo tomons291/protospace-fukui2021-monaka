@@ -8,10 +8,4 @@ class Prototype < ApplicationRecord
   validates :catchcopy, presence: true
   validates :image, presence: true
 
-  validates :prototype, presence: true, unless: :was_attached?
-
-  def was_attached?
-    self.image.attached?
-  end
-
 end
