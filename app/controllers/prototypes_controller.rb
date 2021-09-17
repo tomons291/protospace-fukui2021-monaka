@@ -1,6 +1,7 @@
 class PrototypesController < ApplicationController
-  before_action :set_prototype, only: [:edit,:show]
-  before_action :move_to_index, except: [:index, :show, :edit]
+
+  before_action :set_prototype, only: [:edit, :show, :destroy]
+  before_action :move_to_index, except: [:index, :show, :edit, :destroy]
 
   def index
     @prototypes = Prototype.all
@@ -24,7 +25,6 @@ class PrototypesController < ApplicationController
       render action: :new
     end
   end
-
 
   def edit
      #ログインしていなかったら、ログインページへ遷移する
@@ -52,11 +52,21 @@ class PrototypesController < ApplicationController
     end
   end
 
-  # def update
-  #    prototype = Prototype.find(params[:id])
-  #    prototype.update(prototype_params)
-
-  # end
+  def destroy
+    #ログインしていなかったら、ログインページへ遷移する
+    if user_signed_in?
+        #ログインユーザーと選択したプロトタイプのユーザーが一致しないとき、top画面にとどまる（編集画面は開けない）
+        prototype = Prototype.find(params[:id])
+        if current_user.id == prototype.user_id
+          prototype.destroy
+          redirect_to root_path
+        else
+         redirect_to root_path
+        end
+    else
+       redirect_to new_user_session_path
+    end
+ end
 
   private
 
