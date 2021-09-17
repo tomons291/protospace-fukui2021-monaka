@@ -25,13 +25,6 @@ class PrototypesController < ApplicationController
       render action: :new
     end
   end
-  
-  # 仮で記入している
-  def destroy
-    prototype = Prototype.find(params[:id])
-    prototype.destroy
-    redirect_to root_path
-  end
 
   def edit
      #ログインしていなかったら、ログインページへ遷移する
