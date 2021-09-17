@@ -1,6 +1,7 @@
 class PrototypesController < ApplicationController
+
   before_action :set_prototype, only: [:edit, :show, :destroy]
-  before_action :move_to_index, except: [:index, :show, :destroy]
+  before_action :move_to_index, except: [:index, :show, :edit, :destroy]
 
   def index
     @prototypes = Prototype.all
@@ -13,6 +14,7 @@ class PrototypesController < ApplicationController
 
   def new
     @prototype = Prototype.new
+
   end
 
   def create
@@ -24,15 +26,31 @@ class PrototypesController < ApplicationController
     end
   end
 
-  # def destroy
-  #   prototype = Prototype.find(params[:id])
-  #   if prototype.destroy
-  #     redirect_to root_path
-  #   else
-  #     render action :show
-  #   end
-  # end
+  def edit
+     #ログインしていなかったら、ログインページへ遷移する
+     if user_signed_in?
+         #ログインユーザーと選択したプロトタイプのユーザーが一致しないとき、top画面にとどまる（編集画面は開けない）
+      if current_user.id == @prototype.user_id
+           @prototype= Prototype.find(params[:id])
+      else
+          redirect_to root_path
+      end
+     else
+        redirect_to new_user_session_path
+     end
+  end
 
+  def update
+    #️空白で登録するとエラーが出て、そのままの画面になる
+      @prototype = Prototype.find(params[:id])
+     
+    if @prototype.update(prototype_params)
+      redirect_to prototype_path(@prototype.id)
+
+    else
+      render :edit
+    end
+  end
 
   def destroy
     #ログインしていなかったら、ログインページへ遷移する
@@ -50,10 +68,6 @@ class PrototypesController < ApplicationController
     end
  end
 
-
-
-
-
   private
 
   def prototype_params
@@ -69,5 +83,6 @@ class PrototypesController < ApplicationController
   def set_prototype
     @prototype = Prototype.find(params[:id])
   end
+
 
 end
