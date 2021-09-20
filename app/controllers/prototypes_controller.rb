@@ -18,7 +18,7 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    @prototype = Prototype.new(prototype_params)
+    @prototype = Prototype.new(prototype_params) 
     if @prototype.save
       redirect_to root_path
     else
@@ -42,11 +42,8 @@ class PrototypesController < ApplicationController
 
   def update
     #️空白で登録するとエラーが出て、そのままの画面になる
-      @prototype = Prototype.find(params[:id])
-     
     if @prototype.update(prototype_params)
       redirect_to prototype_path(@prototype.id)
-
     else
       render :edit
     end
