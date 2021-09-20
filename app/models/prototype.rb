@@ -2,10 +2,6 @@ class Prototype < ApplicationRecord
   has_many :comments, dependent: :destroy
   belongs_to :user
   has_one_attached :image
-
-  validates :title, presence: true
-  validates :concept, presence: true
-  validates :catchcopy, presence: true
-  validates :image, presence: true
-
+  
+  validates :title, :concept, :catchcopy, :image, presence: true
 end
