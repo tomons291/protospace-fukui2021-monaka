@@ -29,27 +29,27 @@ class PrototypesController < ApplicationController
 
   def edit
     if current_user.id == @prototype.user_id
-        @prototype= Prototype.find(params[:id])
+      @prototype= Prototype.find(params[:id])
     else
-        redirect_to root_path
+      redirect_to root_path
     end
   end
 
 
   def update
     if @prototype.update(prototype_params)
-        redirect_to prototype_path(@prototype.id)
+      redirect_to prototype_path(@prototype.id)
     else
-        render :edit
+      render :edit
     end
   end
 
   def destroy
     if current_user.id == @prototype.user_id
-        @prototype.destroy
-        redirect_to root_path
+      @prototype.destroy
+      redirect_to root_path
     else
-        redirect_to root_path
+      redirect_to root_path
     end
  end
 
