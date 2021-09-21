@@ -22,7 +22,7 @@ class PrototypesController < ApplicationController
     if @prototype.save
       redirect_to root_path
     else
-      render action: :new
+      render :new
     end
   end
 
@@ -76,7 +76,7 @@ class PrototypesController < ApplicationController
 
   def move_to_index
     unless user_signed_in?
-      redirect_to action: :index
+      redirect_to :index
     end
   end
 
