@@ -30,33 +30,20 @@ class PrototypesController < ApplicationController
   def edit
      #ログインしていなかったら、ログインページへ遷移する
      #ログインユーザーと選択したプロトタイプのユーザーが一致しないとき、top画面にとどまる（編集画面は開けない）
-      if current_user.id == @prototype.user_id
-          @prototype= Prototype.find(params[:id])
-      else
-          redirect_to root_path
-      end
+    if current_user.id == @prototype.user_id
+        @prototype= Prototype.find(params[:id])
+    else
+        redirect_to root_path
+    end
   end
 
-#   def edit
-#     #ログインしていなかったら、ログインページへ遷移する
-#     if user_signed_in?
-#         #ログインユーザーと選択したプロトタイプのユーザーが一致しないとき、top画面にとどまる（編集画面は開けない）
-#      if current_user.id == @prototype.user_id
-#           @prototype= Prototype.find(params[:id])
-#      else
-#          redirect_to root_path
-#      end
-#     else
-#        redirect_to new_user_session_path
-#     end
-#  end
 
   def update
     #️空白で登録するとエラーが出て、そのままの画面になる
     if @prototype.update(prototype_params)
-      redirect_to prototype_path(@prototype.id)
+        redirect_to prototype_path(@prototype.id)
     else
-      render :edit
+        render :edit
     end
   end
 
@@ -64,10 +51,10 @@ class PrototypesController < ApplicationController
     #ログインしていなかったら、ログインページへ遷移する
         #ログインユーザーと選択したプロトタイプのユーザーが一致しないとき、top画面にとどまる（編集画面は開けない）
     if current_user.id == @prototype.user_id
-         @prototype.destroy
-          redirect_to root_path
+        @prototype.destroy
+        redirect_to root_path
     else
-          redirect_to root_path
+        redirect_to root_path
     end
  end
 
@@ -86,6 +73,5 @@ class PrototypesController < ApplicationController
   def set_prototype
     @prototype = Prototype.find(params[:id])
   end
-
-
+  
 end
