@@ -2,6 +2,7 @@ class PrototypesController < ApplicationController
 
   before_action :set_prototype, only: [:edit, :show, :destroy]
   before_action :move_to_index, except: [:index, :show, :edit, :destroy]
+  before_action :authenticate_user!, only: [:edit, :destroy]
 
   def index
     @prototypes = Prototype.includes(:user)
@@ -18,7 +19,7 @@ class PrototypesController < ApplicationController
   end
 
   def create
-    @prototype = Prototype.new(prototype_params)
+    @prototype = Prototype.new(prototype_params) 
     if @prototype.save
       redirect_to root_path
     else
@@ -28,43 +29,32 @@ class PrototypesController < ApplicationController
 
   def edit
      #ログインしていなかったら、ログインページへ遷移する
-     if user_signed_in?
-         #ログインユーザーと選択したプロトタイプのユーザーが一致しないとき、top画面にとどまる（編集画面は開けない）
-      if current_user.id == @prototype.user_id
-           @prototype= Prototype.find(params[:id])
-      else
-          redirect_to root_path
-      end
-     else
-        redirect_to new_user_session_path
-     end
+     #ログインユーザーと選択したプロトタイプのユーザーが一致しないとき、top画面にとどまる（編集画面は開けない）
+    if current_user.id == @prototype.user_id
+        @prototype= Prototype.find(params[:id])
+    else
+        redirect_to root_path
+    end
   end
+
 
   def update
     #️空白で登録するとエラーが出て、そのままの画面になる
-      @prototype = Prototype.find(params[:id])
-     
     if @prototype.update(prototype_params)
-      redirect_to prototype_path(@prototype.id)
-
+        redirect_to prototype_path(@prototype.id)
     else
-      render :edit
+        render :edit
     end
   end
 
   def destroy
     #ログインしていなかったら、ログインページへ遷移する
-    if user_signed_in?
         #ログインユーザーと選択したプロトタイプのユーザーが一致しないとき、top画面にとどまる（編集画面は開けない）
-        prototype = Prototype.find(params[:id])
-        if current_user.id == prototype.user_id
-          prototype.destroy
-          redirect_to root_path
-        else
-         redirect_to root_path
-        end
+    if current_user.id == @prototype.user_id
+        @prototype.destroy
+        redirect_to root_path
     else
-       redirect_to new_user_session_path
+        redirect_to root_path
     end
  end
 
@@ -83,6 +73,5 @@ class PrototypesController < ApplicationController
   def set_prototype
     @prototype = Prototype.find(params[:id])
   end
-
-
+  
 end
